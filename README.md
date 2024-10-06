@@ -8,6 +8,5 @@ Learning project:
 My project (these are projects I built myself):
 
 - random-api
-- RandomSmartContract
 - update-sheet-api
-- scan_job
+- scan-job
