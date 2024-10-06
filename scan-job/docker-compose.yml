@@ -1,0 +1,85 @@
+version: "3.8" # specify the version of docker-compose file
+services:
+  #  FANTOM
+  buy-token-chain-4002:
+    container_name: buy-token-chain-4002
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    command: python main.py --event BuyToken --chain 4002
+
+  investor-chain-4002:
+    container_name: investor-chain-4002
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    command: python main.py --event Investor --chain 4002
+
+  withdraw-chain-4002:
+    container_name: withdraw-chain-4002
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    command: python main.py --event Withdraw --chain 4002
+
+  # BINANCE
+  buy-token-chain-97:
+    container_name: buy-token-chain-97
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    command: python main.py --event BuyToken --chain 97
+
+  investor-chain-97:
+    container_name: investor-chain-97
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    command: python main.py --event Investor --chain 97
+
+  withdraw-chain-97:
+    container_name: withdraw-chain-97
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    command: python main.py --event Withdraw --chain 97
+
+  # ETHEREUM SEPOLIA
+  # buy-token-chain-11155111:
+  #   container_name: buy-token-chain-11155111
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   env_file:
+  #     - .env
+  #   command: python main.py --event BuyToken --chain 11155111
+
+  # investor-chain-11155111:
+  #   container_name: investor-chain-11155111
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   env_file:
+  #     - .env
+  #   command: python main.py --event Investor --chain 11155111
+
+  # withdraw-chain-11155111:
+  #   container_name: withdraw-chain-11155111
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   env_file:
+  #     - .env
+  #   command: python main.py --event Withdraw --chain 11155111

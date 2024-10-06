@@ -1,0 +1,451 @@
+{
+  "address": "4vziut1PVQHX1dJihKuLpvGMSyVu8CXSPMuQvr2ig8tp",
+  "metadata": {
+    "name": "sb_randomness",
+    "version": "0.1.0",
+    "spec": "0.1.0",
+    "description": "Created with Anchor"
+  },
+  "instructions": [
+    {
+      "name": "consume_randomness",
+      "docs": [
+        "Notice: This instruction use to reveal the random data from randomness account and cast random data from array bytes to array u32",
+        "Dev: Convert origin random data to array u32 to make sure the calculate result in range of total minted nft",
+        "Function params:",
+        "ctx: context store all the accounts need to request randomness",
+        "admin: payer account that sign and pay gas must be admin",
+        "config: the configuration account had been initialized to store admin public key",
+        "system_account: system account",
+        "randomness_account_data: the randomness account had been created by switchboard to store randomness result",
+        "round_state: the round state account store information about round randomness"
+      ],
+      "discriminator": [
+        190,
+        217,
+        49,
+        162,
+        99,
+        26,
+        73,
+        234
+      ],
+      "accounts": [
+        {
+          "name": "config_state",
+          "docs": [
+            "config account to check admin state"
+          ],
+          "writable": true
+        },
+        {
+          "name": "round_state",
+          "docs": [
+            "the round state account store information about round randomness"
+          ],
+          "writable": true
+        },
+        {
+          "name": "randomness_account_data"
+        },
+        {
+          "name": "admin",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "draw_random_number",
+      "docs": [
+        "Notice: This instruction use to calculate all the prizes",
+        "Dev: If the calculate result is duplicate, it will calculate until it's not duplicate anymore",
+        "Function params:",
+        "ctx: context store all the accounts need to request randomness",
+        "admin: payer account that sign and pay gas must be admin",
+        "config: the configuration account had been initialized to store admin public key",
+        "round_state: the round state account store information about round randomness"
+      ],
+      "discriminator": [
+        223,
+        242,
+        102,
+        191,
+        226,
+        117,
+        234,
+        218
+      ],
+      "accounts": [
+        {
+          "name": "admin",
+          "writable": true,
+          "signer": true,
+          "relations": [
+            "config_state"
+          ]
+        },
+        {
+          "name": "config_state",
+          "docs": [
+            "the configuration account had been initialized to store admin public key"
+          ],
+          "writable": true
+        },
+        {
+          "name": "round_state",
+          "docs": [
+            "the round state account store information about round randomness"
+          ],
+          "writable": true
+        }
+      ],
+      "args": [
+        {
+          "name": "num_prize",
+          "type": "u16"
+        }
+      ]
+    },
+    {
+      "name": "init_config",
+      "docs": [
+        "Notice: This instruction use to initialize config account that store admin public key",
+        "Function params:",
+        "ctx: context store all the accounts need for initialize configuration",
+        "payer: payer account that sign and pay gas",
+        "config_account: the configuration account has been initialized in this instruction to store admin public key",
+        "system_account: system account",
+        "admin: Public key of admin who can call random instructions"
+      ],
+      "discriminator": [
+        23,
+        235,
+        115,
+        232,
+        168,
+        96,
+        1,
+        231
+      ],
+      "accounts": [
+        {
+          "name": "payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "config_account",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  67,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "admin",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "request_randomness",
+      "docs": [
+        "Notice: This instruction to initialize round state account",
+        "Function params:",
+        "ctx: context store all the accounts need to request randomness",
+        "admin: payer account that sign and pay gas must be admin",
+        "config: the configuration account had been initialized to store admin public key",
+        "system_account: system account",
+        "randomness_account_data: the randomness account had been created by switchboard to store randomness result",
+        "round_state: the round state account store information about round randomness",
+        "round_id: the id of round which admin request randomness result",
+        "params:",
+        "merkle_root: the merkle root generate from pair nft id and index. For example: [\"124,5\"]",
+        "nft_count: total nft minted in this round_id",
+        "prize_count: amount of prize has been awarded in this round_id"
+      ],
+      "discriminator": [
+        213,
+        5,
+        173,
+        166,
+        37,
+        236,
+        31,
+        18
+      ],
+      "accounts": [
+        {
+          "name": "config_state",
+          "docs": [
+            "the configuration account had been initialized to store admin public key"
+          ],
+          "writable": true
+        },
+        {
+          "name": "admin",
+          "docs": [
+            "PAYER ACCOUNTS sign and pay gas"
+          ],
+          "writable": true,
+          "signer": true,
+          "relations": [
+            "config_state"
+          ]
+        },
+        {
+          "name": "system_program",
+          "docs": [
+            "SYSTEM ACCOUNTS"
+          ],
+          "address": "11111111111111111111111111111111"
+        },
+        {
+          "name": "randomness_account_data"
+        },
+        {
+          "name": "round_state",
+          "docs": [
+            "the round state account store information about round randomness"
+          ],
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  82,
+                  111,
+                  117,
+                  110,
+                  100
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "round_id"
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "round_id",
+          "type": "u32"
+        },
+        {
+          "name": "params",
+          "type": {
+            "defined": {
+              "name": "RequestRandomnessParams"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "set_admin",
+      "docs": [
+        "Notice: This instruction use to set admin account in config account",
+        "Function params:",
+        "ctx: context store all the accounts need for set admin",
+        "///         admin: payer account that sign and pay gas",
+        "config_account: the configuration account had been initialized to store admin public key",
+        "admin: Public key of admin who can call random instructions"
+      ],
+      "discriminator": [
+        251,
+        163,
+        0,
+        52,
+        91,
+        194,
+        187,
+        92
+      ],
+      "accounts": [
+        {
+          "name": "config_account",
+          "writable": true
+        },
+        {
+          "name": "admin",
+          "writable": true,
+          "signer": true,
+          "relations": [
+            "config_account"
+          ]
+        }
+      ],
+      "args": [
+        {
+          "name": "admin",
+          "type": "pubkey"
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "ConfigState",
+      "discriminator": [
+        193,
+        77,
+        160,
+        128,
+        208,
+        254,
+        180,
+        135
+      ]
+    },
+    {
+      "name": "RoundState",
+      "discriminator": [
+        153,
+        242,
+        39,
+        64,
+        102,
+        34,
+        239,
+        11
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "RandomnessNotResolved"
+    }
+  ],
+  "types": [
+    {
+      "name": "ConfigState",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "admin",
+            "type": "pubkey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "RequestRandomnessParams",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "merkle_root",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "nft_count",
+            "type": "u32"
+          },
+          {
+            "name": "prize_count",
+            "type": "u32"
+          }
+        ]
+      }
+    },
+    {
+      "name": "RoundState",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "round_id",
+            "type": "u32"
+          },
+          {
+            "name": "merkle_root",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "nft_count",
+            "type": "u32"
+          },
+          {
+            "name": "prize_count",
+            "type": "u32"
+          },
+          {
+            "name": "prize_remaining",
+            "type": "u32"
+          },
+          {
+            "name": "origin_result_buffer",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "casted_result_buffer",
+            "type": {
+              "vec": "u32"
+            }
+          },
+          {
+            "name": "timestamp",
+            "type": "i64"
+          },
+          {
+            "name": "randomness_account",
+            "type": "pubkey"
+          },
+          {
+            "name": "winner_indexes",
+            "type": {
+              "vec": "u32"
+            }
+          },
+          {
+            "name": "commit_slot",
+            "type": "u64"
+          }
+        ]
+      }
+    }
+  ]
+}

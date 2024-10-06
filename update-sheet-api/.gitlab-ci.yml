@@ -1,0 +1,13 @@
+stages:
+  - deploy
+
+deploy:
+  stage: deploy
+  script:
+    - cp .env .
+    - docker compose up -d --build
+  only:
+    refs:
+      - dev
+  tags:
+    - dev

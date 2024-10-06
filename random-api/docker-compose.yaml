@@ -1,0 +1,8 @@
+version: "3"
+services:
+  random-api:
+    container_name: random-api
+    image: dev-repository:random-api-latest
+    ports:
+      - "3010:3000"
+    restart: always

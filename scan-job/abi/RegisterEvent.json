@@ -1,0 +1,94 @@
+{
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "bytes",
+          "name": "proId",
+          "type": "bytes"
+        },
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "chainId",
+              "type": "uint256"
+            },
+            {
+              "internalType": "string",
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "internalType": "address",
+              "name": "owner",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "token",
+              "type": "address"
+            }
+          ],
+          "indexed": false,
+          "internalType": "struct IRegister.Project",
+          "name": "project",
+          "type": "tuple"
+        },
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "startTime",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "endTime",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "ticketPrice",
+              "type": "uint256"
+            },
+            {
+              "internalType": "string",
+              "name": "round",
+              "type": "string"
+            },
+            {
+              "internalType": "uint256",
+              "name": "saleRatePerUnit",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "amountSaleInRound",
+              "type": "uint256"
+            },
+            {
+              "internalType": "bool",
+              "name": "canClaim",
+              "type": "bool"
+            },
+            {
+              "internalType": "enum SaleType",
+              "name": "saleType",
+              "type": "uint8"
+            },
+            {
+              "internalType": "bool",
+              "name": "isCancel",
+              "type": "bool"
+            }
+          ],
+          "indexed": false,
+          "internalType": "struct IRegister.Round[]",
+          "name": "projectRounds",
+          "type": "tuple[]"
+        }
+      ],
+      "name": "RegisterEvent",
+      "type": "event"
+    }
